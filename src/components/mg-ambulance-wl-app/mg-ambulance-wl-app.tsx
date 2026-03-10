@@ -10,9 +10,10 @@ declare global {
   shadow: true,
 })
 export class MgAmbulanceWlApp {
-    @State() private relativePath = "";
-
+  @State() private relativePath = "";
   @Prop() basePath: string="";
+  @Prop() apiBase: string;
+  @Prop() ambulanceId: string;
 
   componentWillLoad() {
     const baseUri = new URL(this.basePath, document.baseURI || "/").pathname;
@@ -54,7 +55,7 @@ export class MgAmbulanceWlApp {
       ? <mg-ambulance-wl-editor entry-id={entryId}
           oneditor-closed={ () => navigate("./list")} >
         </mg-ambulance-wl-editor>
-      : <mg-ambulance-wl-list
+      : <mg-ambulance-wl-list ambulance-id={this.ambulanceId} api-base={this.apiBase}
         onentry-clicked={ (ev: CustomEvent<string>)=> navigate("./entry/" + ev.detail) } >
       </mg-ambulance-wl-list>
       }
