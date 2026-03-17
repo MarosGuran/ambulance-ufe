@@ -15,6 +15,8 @@ export namespace Components {
         "basePath": string;
     }
     interface MgAmbulanceWlEditor {
+        "ambulanceId": string;
+        "apiBase": string;
         "entryId": string;
     }
     interface MgAmbulanceWlList {
@@ -108,6 +110,8 @@ declare namespace LocalJSX {
         "basePath"?: string;
     }
     interface MgAmbulanceWlEditor {
+        "ambulanceId"?: string;
+        "apiBase"?: string;
         "entryId"?: string;
         "onEditor-closed"?: (event: MgAmbulanceWlEditorCustomEvent<string>) => void;
     }
@@ -138,6 +142,8 @@ declare namespace LocalJSX {
     }
     interface MgAmbulanceWlEditorAttributes {
         "entryId": string;
+        "ambulanceId": string;
+        "apiBase": string;
     }
     interface MgAmbulanceWlListAttributes {
         "apiBase": string;
