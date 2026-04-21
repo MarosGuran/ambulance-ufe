@@ -14,13 +14,14 @@ export class MgAmbulanceWlApp {
   @Prop() basePath: string="";
   @Prop() apiBase: string;
   @Prop() ambulanceId: string;
+  private baseUri: string = "";
 
   componentWillLoad() {
-    const baseUri = new URL(this.basePath, document.baseURI || "/").pathname;
+    this.baseUri = new URL(this.basePath, document.baseURI || "/").pathname;
 
     const toRelative = (path: string) => {
-      if (path.startsWith( baseUri)) {
-        this.relativePath = path.slice(baseUri.length)
+      if (path.startsWith(this.baseUri)) {
+        this.relativePath = path.slice(this.baseUri.length)
       } else {
         this.relativePath = ""
       }
@@ -46,7 +47,16 @@ export class MgAmbulanceWlApp {
 
   const navigate = (path:string) => {
     const absolute = new URL(path, new URL(this.basePath, document.baseURI)).pathname;
-    window.navigation.navigate(absolute)
+    if (window.navigation) {
+      window.navigation.navigate(absolute);
+    } else {
+      history.pushState({}, "", absolute);
+      if (absolute.startsWith(this.baseUri)) {
+        this.relativePath = absolute.slice(this.baseUri.length);
+      } else {
+        this.relativePath = "";
+      }
+    }
   }
 
   return (
